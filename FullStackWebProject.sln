@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullStackWebProject.UserInterface", "FullStackWebProject.UserInterface\FullStackWebProject.UserInterface.csproj", "{0518A24F-DD14-46C4-AA29-E7655C99D7BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackWebProject.UserInterface", "FullStackWebProject.UserInterface\FullStackWebProject.UserInterface.csproj", "{0518A24F-DD14-46C4-AA29-E7655C99D7BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackWebProject.Repositories", "FullStackWebProject.Repositories\FullStackWebProject.Repositories.csproj", "{54BF496A-8404-49AC-897E-DBEC7B6F679F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackWebProject.Services", "FullStackWebProject.Services\FullStackWebProject.Services.csproj", "{3DCC1547-BF0E-4FB4-BC3B-C25B48403E39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackWebProject.Models", "FullStackWebProject.Models\FullStackWebProject.Models.csproj", "{480BE0DD-DB58-439A-82A9-EC4526EC8EC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullStackWebProject.RepositoriesContracts", "FullStackWebProject.RepositoriesContracts\FullStackWebProject.RepositoriesContracts.csproj", "{3380A8AE-F2C7-4602-BB7D-03DDBA1FA59A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullStackWebProject.ServicesContracts", "FullStackWebProject.ServicesContracts\FullStackWebProject.ServicesContracts.csproj", "{00888138-EFB2-4918-A00E-54478A9A975D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,26 @@ Global
 		{0518A24F-DD14-46C4-AA29-E7655C99D7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0518A24F-DD14-46C4-AA29-E7655C99D7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0518A24F-DD14-46C4-AA29-E7655C99D7BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54BF496A-8404-49AC-897E-DBEC7B6F679F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54BF496A-8404-49AC-897E-DBEC7B6F679F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54BF496A-8404-49AC-897E-DBEC7B6F679F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54BF496A-8404-49AC-897E-DBEC7B6F679F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DCC1547-BF0E-4FB4-BC3B-C25B48403E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DCC1547-BF0E-4FB4-BC3B-C25B48403E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DCC1547-BF0E-4FB4-BC3B-C25B48403E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DCC1547-BF0E-4FB4-BC3B-C25B48403E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{480BE0DD-DB58-439A-82A9-EC4526EC8EC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{480BE0DD-DB58-439A-82A9-EC4526EC8EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{480BE0DD-DB58-439A-82A9-EC4526EC8EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{480BE0DD-DB58-439A-82A9-EC4526EC8EC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3380A8AE-F2C7-4602-BB7D-03DDBA1FA59A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3380A8AE-F2C7-4602-BB7D-03DDBA1FA59A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3380A8AE-F2C7-4602-BB7D-03DDBA1FA59A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3380A8AE-F2C7-4602-BB7D-03DDBA1FA59A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00888138-EFB2-4918-A00E-54478A9A975D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00888138-EFB2-4918-A00E-54478A9A975D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00888138-EFB2-4918-A00E-54478A9A975D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00888138-EFB2-4918-A00E-54478A9A975D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
