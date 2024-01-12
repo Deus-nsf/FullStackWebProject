@@ -1,5 +1,6 @@
 using FullStackWebProject.Repositories.Context;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,7 +15,9 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
 	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	// The default HSTS value is 30 days.
+	// You may want to change this for production scenarios,
+	// see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
 
@@ -71,13 +74,14 @@ Travail à faire
 
 	Gestion des articles
 	• Pouvoir lister / détail / créer / modifier / supprimer les articles
+		-> AddArticleAsync
 		-> GetArticlesAsync
 		-> GetArticleByIdAsync
-		-> AddArticleAsync
 		-> UpdateArticleAsync
 		-> DeleteArticleAsync
 
 		-> AddCommentAsync
+		-> UpdateCommentAsync
 		-> DeleteCommentAsync
 
 	Gestion des commentaires

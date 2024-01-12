@@ -5,36 +5,51 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FullStackWebProject.Models;
+using FullStackWebProject.Repositories.Context;
 using FullStackWebProject.RepositoriesContracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace FullStackWebProject.Repositories;
 
 
 public class ArticleRepositoryAdvanced : IArticleRepository
 {
-	public Task AddArticleAsync(Article article)
+	private readonly WikYDbContext _context = new();
+
+
+	public async Task AddArticleAsync(Article article)
 	{
-		throw new NotImplementedException();
+		await _context.Articles.AddAsync(article);
+		await _context.SaveChangesAsync();
 	}
 
-	public Task DeleteArticleAsync(int id)
+
+	public async Task<List<Article>> GetArticlesAsync(int? startId = null, int? endId = null)
 	{
-		throw new NotImplementedException();
+		// this version will have pagination later
+		return await _context.Articles.ToListAsync();
 	}
 
-	public Task<Article> GetArticleByIdAsync(int id)
+
+	public async Task<Article?> GetArticleByIdAsync(int id)
 	{
-		throw new NotImplementedException();
+		return await _context.Articles.FindAsync(id);
 	}
 
-	public Task<List<Article>> GetArticlesAsync(int? startId = null, int? endId = null)
+
+	public async Task UpdateArticleAsync(Article article)
 	{
-		// this version will have pagination
-		throw new NotImplementedException();
+		await _context.Articles.Where(a => a.Id == article.Id).ExecuteUpdateAsync
+		(
+			updates => updates.SetProperty(a => a.Topic, article.Topic)
+								.SetProperty(a => a.ModificationDate, DateTime.Now)
+								.SetProperty(a => a.Content, article.Content)
+		);
 	}
 
-	public Task UpdateArticleAsync(int id, Article article)
+
+	public async Task DeleteArticleAsync(int id)
 	{
-		throw new NotImplementedException();
+		await _context.Articles.Where(a => a.Id == id).ExecuteDeleteAsync();
 	}
 }
