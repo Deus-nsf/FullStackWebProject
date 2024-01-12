@@ -1,7 +1,12 @@
+using FullStackWebProject.Repositories.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Entity Framework Context Service
+builder.Services.AddDbContext<WikYDbContext>();
 
 var app = builder.Build();
 
@@ -54,5 +59,43 @@ Contexte
 	- Un projet d’application ASP.NET Core 8
 	- Une architecture MVC avancé (Business + Repository) avec des projets par couche (les Views
 	et Controllers restent dans le projet de base)
+
+Travail à faire
+
+	Création des données
+	• Créer les classes article et commentaire
+	• Ajouter Entity Framework Core
+		o Installation des packages NuGets
+		o Création du context EF
+		o Ajout du context dans les services
+
+	Gestion des articles
+	• Pouvoir lister / détail / créer / modifier / supprimer les articles
+		-> GetArticlesAsync
+		-> GetArticleByIdAsync
+		-> AddArticleAsync
+		-> UpdateArticleAsync
+		-> DeleteArticleAsync
+
+		-> AddCommentAsync
+		-> DeleteCommentAsync
+
+	Gestion des commentaires
+	• La liste de commentaire s’affiche dans le détail d’un article
+	• Pouvoir ajouter des commentaires de 3 façons différentes :
+		o Dans une page dédiée à l’ajout de commentaire pour 1 article (sur le détail de
+			l’article on a un bouton « ajouter un commentaire » qui redirige l’utilisateur vers
+			une autre page)
+		o Directement dans la page de détail de l’article avec un formulaire non typé (avec des
+			champs input fait sans helpers) ou un formulaire typé en vue partielle
+		o Un autre formulaire dans la page de détail mais cette fois si en AJAX
+	• Pouvoir supprimer un commentaire via un lien normal et via un lien en AJAX
+
+	Recherche
+	• La page d’accueil affiche l’article le plus récent
+		o Utiliser une vue partielle pour ré-utiliser le code de l’affichage du détail d’un article
+	• Faire une page permettant de rechercher un article (contenu, thème, etc…)
+	• BONUS
+		o Faire une pagination et un tri des articles et commentaires
 
  */
