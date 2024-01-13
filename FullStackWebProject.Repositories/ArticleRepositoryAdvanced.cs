@@ -27,13 +27,16 @@ public class ArticleRepositoryAdvanced : IArticleRepository
 	public async Task<List<Article>> GetArticlesAsync(int? startId = null, int? endId = null)
 	{
 		// this version will have pagination later
+#if DEBUG
+		Console.WriteLine("ADVANCED");
+#endif
 		return await _context.Articles.ToListAsync();
 	}
 
 
 	public async Task<Article?> GetArticleByIdAsync(int id)
 	{
-		return await _context.Articles.FindAsync(id);
+        return await _context.Articles.FindAsync(id);
 	}
 
 

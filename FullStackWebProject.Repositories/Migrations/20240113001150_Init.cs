@@ -54,12 +54,12 @@ namespace FullStackWebProject.Repositories.Migrations
             migrationBuilder.InsertData(
                 table: "Articles",
                 columns: new[] { "Id", "Author", "Content", "CreationDate", "ModificationDate", "Topic" },
-                values: new object[] { 1, "Deus-nsf", "It's a real concern but people shouldn't be so political about it :D \nit does a great disservice to a very serious problem.", new DateTime(2024, 1, 12, 1, 35, 26, 210, DateTimeKind.Local).AddTicks(6384), new DateTime(2024, 1, 12, 1, 35, 26, 210, DateTimeKind.Local).AddTicks(6398), "Climate change" });
+                values: new object[] { 1, "Deus-nsf", "It's a real concern but people shouldn't be so political about it :D \nit does a great disservice to a very serious problem.", new DateTime(2024, 1, 13, 1, 11, 50, 661, DateTimeKind.Local).AddTicks(5101), new DateTime(2024, 1, 13, 1, 11, 50, 661, DateTimeKind.Local).AddTicks(5117), "Climate change" });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "ArticleId", "Author", "Content", "CreationDate", "ModificationDate" },
-                values: new object[] { 1, 1, "Aurélien Barrau", "Your web app IS part of the problem!", new DateTime(2024, 1, 12, 1, 35, 26, 210, DateTimeKind.Local).AddTicks(6401), new DateTime(2024, 1, 12, 1, 35, 26, 210, DateTimeKind.Local).AddTicks(6402) });
+                values: new object[] { 1, 1, "Aurélien Barrau", "Your web app IS part of the problem!", new DateTime(2024, 1, 13, 1, 11, 50, 661, DateTimeKind.Local).AddTicks(5121), new DateTime(2024, 1, 13, 1, 11, 50, 661, DateTimeKind.Local).AddTicks(5123) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ArticleId",

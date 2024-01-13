@@ -26,6 +26,9 @@ public class ArticleRepository : IArticleRepository
 
 	public async Task<List<Article>> GetArticlesAsync(int? startId = null, int? endId = null)
 	{
+#if DEBUG
+		Console.WriteLine("BASIC");
+#endif
 		return await _context.Articles.ToListAsync();
 	}
 

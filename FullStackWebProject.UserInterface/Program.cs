@@ -1,4 +1,8 @@
+using FullStackWebProject.Repositories;
 using FullStackWebProject.Repositories.Context;
+using FullStackWebProject.RepositoriesContracts;
+using FullStackWebProject.Services;
+using FullStackWebProject.ServicesContracts;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,8 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Entity Framework Context Service
+// Entity Framework Context
 builder.Services.AddDbContext<WikYDbContext>();
+
+// Repositories
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+//builder.Services.AddScoped<IArticleRepository, ArticleRepositoryAdvanced>(); // Pagination
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+
+// Services
+builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+
 
 var app = builder.Build();
 
@@ -33,6 +47,9 @@ app.MapControllerRoute(
 	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+
 
 
 /*
