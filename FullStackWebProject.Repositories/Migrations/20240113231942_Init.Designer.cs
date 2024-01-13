@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullStackWebProject.Repositories.Migrations
 {
     [DbContext(typeof(WikYDbContext))]
-    [Migration("20240113001150_Init")]
+    [Migration("20240113231942_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -62,8 +62,8 @@ namespace FullStackWebProject.Repositories.Migrations
                             Id = 1,
                             Author = "Deus-nsf",
                             Content = "It's a real concern but people shouldn't be so political about it :D \nit does a great disservice to a very serious problem.",
-                            CreationDate = new DateTime(2024, 1, 13, 1, 11, 50, 661, DateTimeKind.Local).AddTicks(5101),
-                            ModificationDate = new DateTime(2024, 1, 13, 1, 11, 50, 661, DateTimeKind.Local).AddTicks(5117),
+                            CreationDate = new DateTime(2024, 1, 14, 0, 19, 42, 659, DateTimeKind.Local).AddTicks(3067),
+                            ModificationDate = new DateTime(2024, 1, 14, 0, 19, 42, 659, DateTimeKind.Local).AddTicks(3081),
                             Topic = "Climate change"
                         });
                 });
@@ -108,8 +108,8 @@ namespace FullStackWebProject.Repositories.Migrations
                             ArticleId = 1,
                             Author = "Aurélien Barrau",
                             Content = "Your web app IS part of the problem!",
-                            CreationDate = new DateTime(2024, 1, 13, 1, 11, 50, 661, DateTimeKind.Local).AddTicks(5121),
-                            ModificationDate = new DateTime(2024, 1, 13, 1, 11, 50, 661, DateTimeKind.Local).AddTicks(5123)
+                            CreationDate = new DateTime(2024, 1, 14, 0, 19, 42, 659, DateTimeKind.Local).AddTicks(3085),
+                            ModificationDate = new DateTime(2024, 1, 14, 0, 19, 42, 659, DateTimeKind.Local).AddTicks(3086)
                         });
                 });
 

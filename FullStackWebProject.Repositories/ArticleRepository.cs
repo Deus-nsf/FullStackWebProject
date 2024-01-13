@@ -35,7 +35,7 @@ public class ArticleRepository : IArticleRepository
 
 	public async Task<Article?> GetArticleByIdAsync(int id)
 	{
-		return await _context.Articles.FindAsync(id);
+		return await _context.Articles.Include(a => a.Comments).FirstAsync();
 	}
 
 

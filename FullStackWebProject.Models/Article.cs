@@ -30,7 +30,7 @@ public class Article
 
 
 	// 0, n
-	public List<Comment?> Comments { get; set; } = new();
+	public List<Comment> Comments { get; set; } = new();
 
 
 	// ----------- Debug Methods -----------

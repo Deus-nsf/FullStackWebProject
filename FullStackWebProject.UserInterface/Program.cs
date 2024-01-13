@@ -15,7 +15,8 @@ builder.Services.AddDbContext<WikYDbContext>();
 
 // Repositories
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
-//builder.Services.AddScoped<IArticleRepository, ArticleRepositoryAdvanced>(); // Pagination
+// Pagination
+//builder.Services.AddScoped<IArticleRepository, ArticleRepositoryAdvanced>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 // Services
@@ -101,6 +102,11 @@ Travail à faire
 		-> UpdateCommentAsync
 		-> DeleteCommentAsync
 
+	Recherche
+	• La page d’accueil affiche l’article le plus récent
+		o Utiliser une vue partielle pour ré-utiliser le code de l’affichage du détail d’un article
+	• Faire une page permettant de rechercher un article (contenu, thème, etc…)
+
 	Gestion des commentaires
 	• La liste de commentaire s’affiche dans le détail d’un article
 	• Pouvoir ajouter des commentaires de 3 façons différentes :
@@ -112,10 +118,6 @@ Travail à faire
 		o Un autre formulaire dans la page de détail mais cette fois si en AJAX
 	• Pouvoir supprimer un commentaire via un lien normal et via un lien en AJAX
 
-	Recherche
-	• La page d’accueil affiche l’article le plus récent
-		o Utiliser une vue partielle pour ré-utiliser le code de l’affichage du détail d’un article
-	• Faire une page permettant de rechercher un article (contenu, thème, etc…)
 	• BONUS
 		o Faire une pagination et un tri des articles et commentaires
 
