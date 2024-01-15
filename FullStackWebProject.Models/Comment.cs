@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 
+
 namespace FullStackWebProject.Models;
 
 
@@ -37,7 +38,7 @@ public class Comment
 	[Required]
 	public int ArticleId { get; set; }
 	public Article? Article { get; set; }  // (must always set linked entity to nullable for EF Core)
-	
+
 
 	// ----------- Debug Methods -----------
 

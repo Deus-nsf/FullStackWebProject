@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace FullStackWebProject.Models;
 
@@ -8,14 +10,14 @@ public class Article
 {
 	// EF handles Required, Auto Increment, and Primary Key automatically
 	// for the property named "Id" with the DBMS
-    public int Id { get; set; }
+	public int Id { get; set; }
 
 	[Remote("CheckUniqueTopic", "Topic", ErrorMessage = "This topic has already been taken")]
-    public string? Topic { get; set; }
+	public string? Topic { get; set; }
 
 	[Required]
 	[StringLength(30)]
-    public string Author { get; set; } = string.Empty;
+	public string Author { get; set; } = string.Empty;
 
 	public DateTime? CreationDate { get; set; }
 

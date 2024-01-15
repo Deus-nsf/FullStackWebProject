@@ -5,6 +5,7 @@ using FullStackWebProject.ServicesContracts;
 
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace FullStackWebProject.UserInterface.Controllers;
 
 
@@ -12,7 +13,6 @@ public class CommentController : Controller
 {
 	private readonly IArticleService _articleService;
 	private readonly ICommentService _commentService;
-
 	public CommentController(IArticleService articleService, ICommentService commentService)
 	{
 		_articleService = articleService;
@@ -53,7 +53,7 @@ public class CommentController : Controller
 	{
 		List<Article> articlesWithoutComments = await _articleService.GetArticles();
 		List<Comment> comments = new();
-			
+
 		foreach (Article article in articlesWithoutComments)
 		{
 			Article? articleWithComments = await _articleService.GetArticleById(article.Id);
@@ -109,8 +109,8 @@ public class CommentController : Controller
 			CreationDate = DateTime.Now,
 			ModificationDate = DateTime.Now,
 			Author = new Faker().Person.FullName,
-			ArticleId = articleId,	// EF Core will auto wire with the linked entity upon insert
-			Content = new Faker().Lorem.Sentences(1)	// May crash due to lengh constraint
+			ArticleId = articleId,  // EF Core will auto wire with the linked entity upon insert
+			Content = new Faker().Lorem.Sentences(1)    // May crash due to length constraint
 		};
 
 		try
@@ -120,7 +120,8 @@ public class CommentController : Controller
 		catch (Exception ex)
 		{
 			await Console.Out.WriteLineAsync(ex.Message);
-			throw;	// I need a dedicated error page for Content above StringLength(100)
+			//ModelState.AddModelError(ex.FieldName, ex.Message);
+			throw;  // I need a dedicated error page for Content above StringLength(100)
 		}
 	}
 }
