@@ -1,5 +1,8 @@
-﻿using FullStackWebProject.Models;
+﻿using Bogus;
+
+using FullStackWebProject.Models;
 using FullStackWebProject.ServicesContracts;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace FullStackWebProject.UserInterface.Controllers;
@@ -16,24 +19,108 @@ public class CommentController : Controller
 		_commentService = commentService;
 	}
 
+
 	// ----------- ACTIONS -----------
+
 
 	public async Task<IActionResult> Index()
 	{
 #if DEBUG
-		await TestGetArticlesAndComments();
+		await TestGetArticleAndComments();
 #endif
-		return View();
+		return RedirectToAction("DisplayAllComments");
 	}
+
+
+	[HttpGet]
+	public async Task<IActionResult> CreateComment(int articleId)
+	{
+#if DEBUG
+		await TestAddComment(articleId);
+#else
+		//return View(); // I need to create an actual form
+#endif
+		return RedirectToAction("DisplayComments", new { ArticleId = articleId });
+	}
+	//[HttpPost]
+	//public async Task<IActionResult> CreateComment(Comment comment)
+	//{
+	//	return View();
+	//}
+
+
+	public async Task<IActionResult> DisplayAllComments()
+	{
+		List<Article> articlesWithoutComments = await _articleService.GetArticles();
+		List<Comment> comments = new();
+			
+		foreach (Article article in articlesWithoutComments)
+		{
+			Article? articleWithComments = await _articleService.GetArticleById(article.Id);
+			comments.AddRange(articleWithComments?.Comments ?? new());
+		}
+
+		comments = comments.OrderByDescending(c => c.ModificationDate).ToList();
+
+		return View("DisplayComments", comments);
+	}
+
+
+	public async Task<IActionResult> DisplayComments(int articleId)
+	{
+		Article? article = await _articleService.GetArticleById(articleId);
+		List<Comment> comments = article?.Comments.ToList() ?? new();
+
+		ViewBag.UniqueArticle = true;
+		ViewBag.ArticleId = articleId;
+
+		return View(comments);
+	}
+
+
+	public async Task<IActionResult> DeleteComment(int id, int articleId)
+	{
+		await _commentService.DeleteComment(id);
+
+		return RedirectToAction("DisplayComments", new { ArticleId = articleId });
+	}
+
 
 	// ----------- OTHER -----------
 
-	public async Task TestGetArticlesAndComments()
+
+	public async Task TestGetArticleAndComments()
 	{
 		Article? article = await _articleService.GetArticleById(1);
-		Comment? comment = article?.Comments.FirstOrDefault();
+		List<Comment> comments = article?.Comments.ToList() ?? new();
 
 		await Console.Out.WriteLineAsync(article?.ToString());
-		await Console.Out.WriteLineAsync(comment?.ToString());
-    }
+		foreach (Comment comment in comments)
+		{
+			await Console.Out.WriteLineAsync(comment.ToString());
+		}
+	}
+
+
+	public async Task TestAddComment(int articleId)
+	{
+		Comment comment = new()
+		{
+			CreationDate = DateTime.Now,
+			ModificationDate = DateTime.Now,
+			Author = new Faker().Person.FullName,
+			ArticleId = articleId,	// EF Core will auto wire with the linked entity upon insert
+			Content = new Faker().Lorem.Sentences(1)	// May crash due to lengh constraint
+		};
+
+		try
+		{
+			await _commentService.AddComment(comment);
+		}
+		catch (Exception ex)
+		{
+			await Console.Out.WriteLineAsync(ex.Message);
+			throw;	// I need a dedicated error page for Content above StringLength(100)
+		}
+	}
 }

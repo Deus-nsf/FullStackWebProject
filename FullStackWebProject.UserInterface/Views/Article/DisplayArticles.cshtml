@@ -1,0 +1,96 @@
+﻿@using FullStackWebProject.Models
+
+@model List<Article>
+
+
+<a class="btn btn-primary"
+   asp-action="CreateArticle">
+	Create an article
+</a>
+
+<br />
+<hr />
+<br />
+
+@foreach (Article article in Model)
+{
+	List<string> paragraphs = article.Content.Split("\n").ToList();
+
+	<table>
+		@{
+#if DEBUG
+		<tr>
+			<th>@nameof(article.Id)</th>
+			<td>
+				<b>@article.Id</b>
+			</td>
+		</tr>
+#endif
+		}
+		<tr>
+			<th>@nameof(article.Topic)</th>
+			<td>
+				<b>@article.Topic</b>
+			</td>
+		</tr>
+		<tr>
+			<th>@nameof(article.Author)</th>
+			<td>
+				<b>@article.Author</b>
+			</td>
+		</tr>
+		<tr>
+			<th>@nameof(article.Content)</th>
+			<td>
+				@foreach (var paragraph in paragraphs)
+				{
+					@paragraph
+					<br />
+				}
+			</td>
+		</tr>
+		<tr>
+			<th>@nameof(article.CreationDate)</th>
+			<td>
+				@article.CreationDate
+			</td>
+		</tr>
+		@if (article.CreationDate.HasValue && article.ModificationDate.HasValue &&
+				article.CreationDate.Value.CompareTo(article.ModificationDate.Value) > 0)
+		{
+			<tr>
+				<th>@nameof(article.ModificationDate)</th>
+				<td>
+					@article.ModificationDate
+				</td>
+			</tr>
+		}
+	</table>
+
+	<br />
+
+	<a class="btn btn-warning"
+	   asp-action="CreateComment"
+	   asp-controller="Comment"
+	   asp-route-articleId="@article.Id">
+		Create Comment
+	</a>
+
+	<a class="btn btn-secondary"
+	   asp-action="DisplayComments"
+	   asp-controller="Comment"
+	   asp-route-articleId="@article.Id">
+		Show Details
+	</a>
+
+	<a class="btn btn-danger"
+	   asp-action="DeleteArticle"
+	   asp-route-id="@article.Id">
+		Delete Article
+	</a>
+
+	<br />
+	<br />
+	<hr />
+	<br />
+}
