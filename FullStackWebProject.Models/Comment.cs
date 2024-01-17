@@ -30,14 +30,11 @@ public class Comment
 	[StringLength(100)]
 	public string Content { get; set; } = string.Empty;
 
-
-	// ----------- Foreign Keys -----------
-
-
 	// 1, 1
 	[Required]
-	public int ArticleId { get; set; }
-	public Article? Article { get; set; }  // (must always set linked entity to nullable for EF Core)
+	public int ArticleId { get; set; }	// Will become Foreign Key
+	// (must always set linked entity to nullable for EF Core)
+	public Article? Article { get; set; }	// ORM ONLY
 
 
 	// ----------- Debug Methods -----------

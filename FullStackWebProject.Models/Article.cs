@@ -27,12 +27,8 @@ public class Article
 	[StringLength(45100)]
 	public string Content { get; set; } = string.Empty;
 
-
-	// ----------- Foreign Keys -----------
-
-
 	// 0, n
-	public List<Comment> Comments { get; set; } = new();
+	public List<Comment> Comments { get; set; } = new();	// ORM ONLY
 
 
 	// ----------- Debug Methods -----------
