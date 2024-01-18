@@ -73,6 +73,7 @@ public class CommentController : Controller
 
 		ViewBag.UniqueArticle = true;
 		ViewBag.ArticleId = articleId;
+		ViewBag.Topic = article?.Topic ?? "<no topic>";
 
 		return View(comments);
 	}

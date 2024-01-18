@@ -2,15 +2,25 @@
 
 @model List<Comment>
 
-
-@if (ViewBag.UniqueArticle == true)
-{
-	<a class="btn btn-warning"
-	   asp-action="CreateComment"
-	   asp-route-articleId="@ViewBag.ArticleId">
-		Create Comment
-	</a>
-}
+@{#if DEBUG
+	if (ViewBag.UniqueArticle == true)
+	{
+		<a class="btn btn-warning"
+		   asp-action="CreateComment"
+		   asp-route-articleId="@ViewBag.ArticleId">
+			Create Comment for Article @ViewBag.ArticleId
+		</a>
+	}
+#else
+	if (ViewBag.UniqueArticle == true)
+	{
+		<a class="btn btn-warning"
+		   asp-action="CreateComment"
+		   asp-route-articleId="@ViewBag.ArticleId">
+			Create Comment for @ViewBag.Topic
+		</a>
+	}
+#endif}
 
 <br />
 <hr />
@@ -21,16 +31,15 @@
 	List<string> paragraphs = comment.Content.Split("\n").ToList();
 
 	<table>
-		@{
-#if DEBUG
+		
+@{#if DEBUG
 		<tr>
 			<th>@nameof(comment.ArticleId)</th>
 			<td>
 				<b>@comment.ArticleId</b>
 			</td>
 		</tr>
-#endif
-		}
+#endif}
 		<tr>
 			<th>@nameof(comment.Article.Topic)</th>
 			<td>
