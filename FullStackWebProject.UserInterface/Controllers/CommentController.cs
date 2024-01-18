@@ -23,10 +23,10 @@ public class CommentController : Controller
 	// ----------- ACTIONS -----------
 
 
-	public async Task<IActionResult> Index()
+	public IActionResult Index()
 	{
 #if DEBUG
-		await TestGetArticleAndComments();
+		//await TestGetArticleAndComments();
 #endif
 		return RedirectToAction("DisplayAllComments");
 	}
