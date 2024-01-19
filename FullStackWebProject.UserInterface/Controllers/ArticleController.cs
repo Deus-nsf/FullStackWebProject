@@ -49,6 +49,7 @@ public class ArticleController : Controller
 #endif
 		return RedirectToAction("Index");
 	}
+	/*HttpPost sur une Web App full stack MVC (pas API) avec des generations d' AntiForgeryToken et des protection [ValidateAntiForgeryToken] sur les routes*/
 	//[HttpPost]
 	//public async Task<IActionResult> CreateArticle(Article article)
 	//{
