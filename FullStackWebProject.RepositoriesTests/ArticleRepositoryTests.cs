@@ -10,6 +10,7 @@ using FullStackWebProject.Repositories.Context;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using FullStackWebProject.Models;
+using Bogus;
 
 
 namespace FullStackWebProject.Repositories.Tests;
@@ -41,7 +42,7 @@ public class ArticleRepositoryTests
 	}
 
 
-	private async Task VerifyDatabase()
+	private async Task VerifyDatabaseConnection()
 	{
 		bool canConnect = false;
 
@@ -55,13 +56,14 @@ public class ArticleRepositoryTests
 			while (ex.InnerException is not null)
 				ex = ex.InnerException;
 
-			Console.WriteLine(ex);
+			await Console.Out.WriteLineAsync(ex.Message);
 		}
 
-		if(canConnect == false)
+		if (canConnect == false)
 		{
 			// We need to create the database test copy
-			_dbContextTest.Database.Migrate(); // EnsureCreated with migrations
+			// EnsureCreated with migrations
+			await _dbContextTest.Database.MigrateAsync();
 
 			// This will NOT copy the entities of the real database,
 			// only default values declared in the context,
@@ -71,12 +73,17 @@ public class ArticleRepositoryTests
 	}
 
 
+	/// <summary>
+	/// I want to ensure the ability of connecting to the database
+	/// and retrieve at least some data in any shape or form
+	/// </summary>
+	/// <returns></returns>
 	[TestMethod()]
 	[Timeout(3000)]
 	public async Task GetArticlesAsyncTest()
 	{
 		// Arrange
-		await VerifyDatabase();
+		await VerifyDatabaseConnection();
 		ArticleRepository articleRepository = new(_dbContextTest);
 
 		// Act
@@ -84,5 +91,76 @@ public class ArticleRepositoryTests
 
 		// Assert
 		Assert.IsTrue(articles.Count > 0);
+	}
+
+
+	/// <summary>
+	/// I want to ensure the insertion of an article in the database
+	/// This will simulate a form validation with Bogus/Faker
+	/// </summary>
+	/// <returns></returns>
+	[TestMethod()]
+	[Timeout(3000)]
+	public async Task AddArticleAsyncTest()
+	{
+		// Arrange
+		await VerifyDatabaseConnection();
+		ArticleRepository articleRepository = new(_dbContextTest);
+		Article article = new()
+		{
+			CreationDate = DateTime.Now,
+			ModificationDate = DateTime.Now,
+			Author = new Faker().Person.FullName,
+			Topic = new Faker().Vehicle.Model(),
+			Content = new Faker().Lorem.Sentences(5)
+		};
+		bool insertSuccess = true;
+
+		// Act
+		try
+		{
+			await articleRepository.AddArticleAsync(article);
+		}
+		catch (Exception ex)
+		{
+			while (ex.InnerException is not null)
+				ex = ex.InnerException;
+
+			await Console.Out.WriteLineAsync(ex.Message);
+			insertSuccess = false;
+		}
+
+		// Assert
+		Assert.IsTrue(insertSuccess);
+	}
+
+
+	/// <summary>
+	/// I want to ensure that I can retrieve the list of comments
+	/// attached to the first article with the .Include EF Core function
+	/// This is used to ensure any migration did not break entity relations
+	/// </summary>
+	/// <returns></returns>
+	[TestMethod()]
+	[Timeout(3000)]
+	public async Task GetArticleByIdAsyncTest()
+	{
+		// Arrange
+		await VerifyDatabaseConnection();
+		ArticleRepository articleRepository = new(_dbContextTest);
+
+		// Act
+		Article? article = await articleRepository.GetArticleByIdAsync(1);
+		List<Comment> comments = article?.Comments.ToList() ?? new();
+
+		await Console.Out.WriteLineAsync(article?.ToString() ?? "No Articles");
+		foreach (Comment comment in comments)
+		{
+			await Console.Out.WriteLineAsync(comment.ToString());
+		}
+
+		// Assert
+		Assert.IsTrue(article is not null);
+		Assert.IsTrue(comments.Count > 0);
 	}
 }

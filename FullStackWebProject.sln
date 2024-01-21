@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackWebProject.Reposit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackWebProject.ServicesContracts", "FullStackWebProject.ServicesContracts\FullStackWebProject.ServicesContracts.csproj", "{00888138-EFB2-4918-A00E-54478A9A975D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullStackWebProject.RepositoriesTests", "FullStackWebProject.RepositoriesTests\FullStackWebProject.RepositoriesTests.csproj", "{2A23A507-8444-4057-9DCA-8AF582060BC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullStackWebProject.RepositoriesTests", "FullStackWebProject.RepositoriesTests\FullStackWebProject.RepositoriesTests.csproj", "{2A23A507-8444-4057-9DCA-8AF582060BC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

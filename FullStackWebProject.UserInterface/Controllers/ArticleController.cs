@@ -1,9 +1,8 @@
-﻿using Bogus;
-
-using FullStackWebProject.Models;
+﻿using FullStackWebProject.Models;
 using FullStackWebProject.ServicesContracts;
 
 using Microsoft.AspNetCore.Mvc;
+using Bogus;
 
 
 namespace FullStackWebProject.UserInterface.Controllers;
@@ -21,22 +20,9 @@ public class ArticleController : Controller
 	// ----------- ACTIONS -----------
 
 
-	public async Task<IActionResult> Index()
+	public IActionResult Index()
 	{
-#if DEBUG
-		await TestGetArticles();
-#endif
-		return RedirectToAction("DisplayArticles");
-	}
-
-
-	public async Task<IActionResult> DisplayArticles()
-	{
-		List<Article> articles = await _articleService.GetArticles();
-		articles = 
-			articles.OrderByDescending(a => a.ModificationDate).ToList();
-
-		return View(articles);
+		return View();
 	}
 
 
@@ -64,6 +50,16 @@ public class ArticleController : Controller
 	//}
 
 
+	public async Task<IActionResult> DisplayArticles()
+	{
+		List<Article> articles = await _articleService.GetArticles();
+		articles =
+			articles.OrderByDescending(a => a.ModificationDate).ToList();
+
+		return View(articles);
+	}
+
+
 	public async Task<IActionResult> DeleteArticle(int id)
 	{
 		await _articleService.DeleteArticle(id);
@@ -75,15 +71,15 @@ public class ArticleController : Controller
 	// ----------- OTHER -----------
 
 
-	public async Task TestGetArticles()
-	{
-		List<Article> articles = await _articleService.GetArticles();
+	//public async Task TestGetArticles()
+	//{
+	//	List<Article> articles = await _articleService.GetArticles();
 
-		foreach (Article article in articles)
-		{
-			await Console.Out.WriteLineAsync(article.ToString());
-		}
-	}
+	//	foreach (Article article in articles)
+	//	{
+	//		await Console.Out.WriteLineAsync(article.ToString());
+	//	}
+	//}
 
 
 	public async Task TestAddArticle()

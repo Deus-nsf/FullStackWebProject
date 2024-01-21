@@ -26,10 +26,7 @@ public class CommentController : Controller
 
 	public IActionResult Index()
 	{
-#if DEBUG
-		//await TestGetArticleAndComments();
-#endif
-		return RedirectToAction("DisplayAllComments");
+		return View();
 	}
 
 
@@ -51,8 +48,10 @@ public class CommentController : Controller
 	//}
 
 
+
 	public async Task<IActionResult> DisplayAllComments()
 	{
+#if DEBUG
 		List<Article> articlesWithoutComments = 
 			await _articleService.GetArticles();
 
@@ -68,9 +67,13 @@ public class CommentController : Controller
 
 		comments = 
 			comments.OrderByDescending(c => c.ModificationDate).ToList();
-
+		
 		return View("DisplayComments", comments);
+#else
+		return View();
+#endif
 	}
+
 
 
 	public async Task<IActionResult> DisplayComments(int articleId)
@@ -98,17 +101,17 @@ public class CommentController : Controller
 	// ----------- OTHER -----------
 
 
-	public async Task TestGetArticleAndComments()
-	{
-		Article? article = await _articleService.GetArticleById(1);
-		List<Comment> comments = article?.Comments.ToList() ?? new();
+	//public async Task TestGetArticleAndComments()
+	//{
+	//	Article? article = await _articleService.GetArticleById(1);
+	//	List<Comment> comments = article?.Comments.ToList() ?? new();
 
-		await Console.Out.WriteLineAsync(article?.ToString());
-		foreach (Comment comment in comments)
-		{
-			await Console.Out.WriteLineAsync(comment.ToString());
-		}
-	}
+	//	await Console.Out.WriteLineAsync(article?.ToString());
+	//	foreach (Comment comment in comments)
+	//	{
+	//		await Console.Out.WriteLineAsync(comment.ToString());
+	//	}
+	//}
 
 
 	public async Task TestAddComment(int articleId)
