@@ -5,13 +5,24 @@ using FullStackWebProject.Services;
 using FullStackWebProject.ServicesContracts;
 
 
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 // Entity Framework Context
-builder.Services.AddDbContext<WikYDbContext>();
+builder.Services.AddDbContext<WikYDbContext>
+(
+	optionsBuilder => optionsBuilder.UseSqlServer
+	(
+		"Data Source=(localdb)\\MSSQLLOCALDB;" +
+		"Initial Catalog=WikY;" +
+		"Integrated Security=True"
+	)
+);
 
 // Repositories
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();

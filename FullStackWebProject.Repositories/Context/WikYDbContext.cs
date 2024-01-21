@@ -15,16 +15,20 @@ public class WikYDbContext : DbContext
 	public DbSet<Comment> Comments { get; set; }
 
 
+	public WikYDbContext(DbContextOptions<WikYDbContext> options)
+		: base(options) { }
+
+
 	// DB description
 	protected override void OnConfiguring(
 		DbContextOptionsBuilder optionsBuilder)
 	{
-		optionsBuilder.UseSqlServer
-		(
-			"Data Source=(localdb)\\MSSQLLOCALDB;" +
-			"Initial Catalog=WikY;" +
-			"Integrated Security=True"
-		);
+		//optionsBuilder.UseSqlServer
+		//(
+		//	"Data Source=(localdb)\\MSSQLLOCALDB;" +
+		//	"Initial Catalog=WikY;" +
+		//	"Integrated Security=True"
+		//);
 
 #if DEBUG
 		optionsBuilder.LogTo(Console.WriteLine, 
