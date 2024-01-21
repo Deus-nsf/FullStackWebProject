@@ -132,4 +132,6 @@ Travail à faire
 	• BONUS
 		o Faire une pagination et un tri des articles et commentaires
 
+	Comment to test Azure DevOps CI Tests trigger.
+
  */
