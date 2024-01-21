@@ -31,10 +31,12 @@ public class ArticleController : Controller
 	{
 #if DEBUG
 		await TestAddArticle();
+		return RedirectToAction("DisplayArticles");
 #else
+		await TestAddArticle();
+		return RedirectToAction("DisplayArticles");
 		//return View(); // I need to create an actual form
 #endif
-		return RedirectToAction("Index");
 	}
 	/*HttpPost sur une Web App full stack MVC (pas API) avec des generations d' AntiForgeryToken et des protection [ValidateAntiForgeryToken] sur les routes*/
 	//[HttpPost]
@@ -64,7 +66,7 @@ public class ArticleController : Controller
 	{
 		await _articleService.DeleteArticle(id);
 
-		return RedirectToAction("Index");
+		return RedirectToAction("DisplayArticles");
 	}
 
 

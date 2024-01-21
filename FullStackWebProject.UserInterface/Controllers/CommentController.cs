@@ -35,11 +35,14 @@ public class CommentController : Controller
 	{
 #if DEBUG
 		await TestAddComment(articleId);
-#else
-		//return View(); // I need to create an actual form
-#endif
 		return RedirectToAction("DisplayComments", 
 								new { ArticleId = articleId });
+#else
+		await TestAddComment(articleId);
+		return RedirectToAction("DisplayComments", 
+								new { ArticleId = articleId });
+		//return View(); // I need to create an actual form
+#endif
 	}
 	//[HttpPost]
 	//public async Task<IActionResult> CreateComment(Comment comment)
@@ -70,7 +73,8 @@ public class CommentController : Controller
 		
 		return View("DisplayComments", comments);
 #else
-		return View();
+		List<Comment> comments = new();
+		return View("DisplayComments", comments);
 #endif
 	}
 
