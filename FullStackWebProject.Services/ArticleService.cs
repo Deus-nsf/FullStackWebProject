@@ -21,7 +21,8 @@ public class ArticleService : IArticleService
 	}
 
 
-	public async Task<List<Article>> GetArticles(int? startId = null, int? endId = null)
+	public async Task<List<Article>> GetArticles(
+		int? startId = null, int? endId = null)
 	{
 		return await _articleRepository.GetArticlesAsync(startId, endId);
 	}

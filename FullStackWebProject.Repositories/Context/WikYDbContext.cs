@@ -16,14 +16,22 @@ public class WikYDbContext : DbContext
 
 
 	// DB description
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	protected override void OnConfiguring(
+		DbContextOptionsBuilder optionsBuilder)
 	{
-		optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLOCALDB;Initial Catalog=WikY;Integrated Security=True");
+		optionsBuilder.UseSqlServer
+		(
+			"Data Source=(localdb)\\MSSQLLOCALDB;" +
+			"Initial Catalog=WikY;" +
+			"Integrated Security=True"
+		);
 
 #if DEBUG
-		optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Debug);
+		optionsBuilder.LogTo(Console.WriteLine, 
+			Microsoft.Extensions.Logging.LogLevel.Debug);
 #else
-		optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.None);
+		optionsBuilder.LogTo(Console.WriteLine, 
+			Microsoft.Extensions.Logging.LogLevel.None);
 #endif
 
 		base.OnConfiguring(optionsBuilder);

@@ -16,44 +16,54 @@ namespace FullStackWebProject.Repositories;
 
 public class ArticleRepository : IArticleRepository
 {
-	private readonly WikYDbContext _context = new();
+	private readonly WikYDbContext _dbContext;
+	public ArticleRepository(WikYDbContext dbContext)
+	{
+		_dbContext = dbContext;
+	}
 
 
 	public async Task AddArticleAsync(Article article)
 	{
-		await _context.Articles.AddAsync(article);
-		await _context.SaveChangesAsync();
+		await _dbContext.Articles.AddAsync(article);
+		await _dbContext.SaveChangesAsync();
 	}
 
 
-	public async Task<List<Article>> GetArticlesAsync(int? startId = null, int? endId = null)
+	public async Task<List<Article>> GetArticlesAsync(
+		int? startId = null, int? endId = null)
 	{
 #if DEBUG
 		Console.WriteLine("BASIC");
 #endif
-		return await _context.Articles.ToListAsync();
+		return await _dbContext.Articles.ToListAsync();
 	}
 
 
 	public async Task<Article?> GetArticleByIdAsync(int id)
 	{
-		return await _context.Articles.Include(a => a.Comments).FirstAsync(a => a.Id == id);
+		return await _dbContext.Articles
+			.Include(a => a.Comments)
+			.FirstAsync(a => a.Id == id);
 	}
 
 
 	public async Task UpdateArticleAsync(Article article)
 	{
-		await _context.Articles.Where(a => a.Id == article.Id).ExecuteUpdateAsync
+		await _dbContext.Articles
+			.Where(a => a.Id == article.Id).ExecuteUpdateAsync
 		(
-			updates => updates.SetProperty(a => a.Topic, article.Topic)
-								.SetProperty(a => a.Content, article.Content)
-								.SetProperty(a => a.ModificationDate, DateTime.Now)
+			updates => updates
+				.SetProperty(a => a.Topic, article.Topic)
+				.SetProperty(a => a.Content, article.Content)
+				.SetProperty(a => a.ModificationDate, DateTime.Now)
 		);
 	}
 
 
 	public async Task DeleteArticleAsync(int id)
 	{
-		await _context.Articles.Where(a => a.Id == id).ExecuteDeleteAsync();
+		await _dbContext.Articles
+			.Where(a => a.Id == id).ExecuteDeleteAsync();
 	}
 }

@@ -30,7 +30,7 @@ public class Comment
 	[StringLength(100)]
 	public string Content { get; set; } = string.Empty;
 
-	// 1, 1
+	// FOREIGN KEY 1, 1
 	[Required]
 	public int ArticleId { get; set; }	// Will become Foreign Key
 	// (must always set linked entity to nullable for EF Core)

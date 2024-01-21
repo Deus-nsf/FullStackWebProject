@@ -33,7 +33,8 @@ public class ArticleController : Controller
 	public async Task<IActionResult> DisplayArticles()
 	{
 		List<Article> articles = await _articleService.GetArticles();
-		articles = articles.OrderByDescending(a => a.ModificationDate).ToList();
+		articles = 
+			articles.OrderByDescending(a => a.ModificationDate).ToList();
 
 		return View(articles);
 	}

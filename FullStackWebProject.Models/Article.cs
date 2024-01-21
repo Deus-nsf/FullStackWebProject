@@ -12,7 +12,9 @@ public class Article
 	// for the property named "Id" with the DBMS
 	public int Id { get; set; }
 
-	[Remote("CheckUniqueTopic", "Topic", ErrorMessage = "This topic has already been taken")]
+	[Remote("CheckUniqueTopic", 
+			"Topic", 
+			ErrorMessage = "This topic has already been taken")]
 	public string? Topic { get; set; }
 
 	[Required]

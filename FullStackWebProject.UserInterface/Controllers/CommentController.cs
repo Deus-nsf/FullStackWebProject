@@ -13,7 +13,8 @@ public class CommentController : Controller
 {
 	private readonly IArticleService _articleService;
 	private readonly ICommentService _commentService;
-	public CommentController(IArticleService articleService, ICommentService commentService)
+	public CommentController(IArticleService articleService, 
+							ICommentService commentService)
 	{
 		_articleService = articleService;
 		_commentService = commentService;
@@ -40,7 +41,8 @@ public class CommentController : Controller
 #else
 		//return View(); // I need to create an actual form
 #endif
-		return RedirectToAction("DisplayComments", new { ArticleId = articleId });
+		return RedirectToAction("DisplayComments", 
+								new { ArticleId = articleId });
 	}
 	//[HttpPost]
 	//public async Task<IActionResult> CreateComment(Comment comment)
@@ -51,16 +53,21 @@ public class CommentController : Controller
 
 	public async Task<IActionResult> DisplayAllComments()
 	{
-		List<Article> articlesWithoutComments = await _articleService.GetArticles();
+		List<Article> articlesWithoutComments = 
+			await _articleService.GetArticles();
+
 		List<Comment> comments = new();
 
 		foreach (Article article in articlesWithoutComments)
 		{
-			Article? articleWithComments = await _articleService.GetArticleById(article.Id);
+			Article? articleWithComments = 
+				await _articleService.GetArticleById(article.Id);
+
 			comments.AddRange(articleWithComments?.Comments ?? new());
 		}
 
-		comments = comments.OrderByDescending(c => c.ModificationDate).ToList();
+		comments = 
+			comments.OrderByDescending(c => c.ModificationDate).ToList();
 
 		return View("DisplayComments", comments);
 	}
@@ -83,7 +90,8 @@ public class CommentController : Controller
 	{
 		await _commentService.DeleteComment(id);
 
-		return RedirectToAction("DisplayComments", new { ArticleId = articleId });
+		return RedirectToAction("DisplayComments", 
+								new { ArticleId = articleId });
 	}
 
 
