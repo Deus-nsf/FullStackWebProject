@@ -1,97 +1,97 @@
 ﻿@using FullStackWebProject.Models
+@using FullStackWebProject.UserInterface.ViewModels
 
-@model List<Comment>
+@model ArticleCommentViewModel
 
-@{#if DEBUG
-	if (ViewBag.UniqueArticle == true)
-	{
-		<a class="btn btn-warning"
-		   asp-action="CreateComment"
-		   asp-route-articleId="@ViewBag.ArticleId">
-			Create Comment for Article @ViewBag.ArticleId
-		</a>
-	}
-#else
-	if (ViewBag.UniqueArticle == true)
-	{
-		<a class="btn btn-warning"
-		   asp-action="CreateComment"
-		   asp-route-articleId="@ViewBag.ArticleId">
-			Create Comment for @ViewBag.Topic
-		</a>
-	}
-#endif}
 
 <br />
 <hr />
 <br />
 
-@foreach (Comment comment in Model)
-{
-	List<string> paragraphs = comment.Content.Split("\n").ToList();
+@{
+	if (Model.Article is not null)
+	{
+		<partial name="PartialViews/_Article" model=Model.Article />
 
-	<table>
-		
-@{#if DEBUG
-		<tr>
-			<th>@nameof(comment.ArticleId)</th>
-			<td>
-				<b>@comment.ArticleId</b>
-			</td>
-		</tr>
-#endif}
-		<tr>
-			<th>@nameof(comment.Article.Topic)</th>
-			<td>
-				<b>@(comment.Article?.Topic ?? "ERROR")</b>
-			</td>
-		</tr>
-		<tr>
-			<th>@nameof(comment.Author)</th>
-			<td>
-				<b>@comment.Author</b>
-			</td>
-		</tr>
-		<tr>
-			<th>@nameof(comment.Content)</th>
-			<td>
-				@foreach (var paragraph in paragraphs)
-				{
-					@paragraph
-					<br />
-				}
-			</td>
-		</tr>
-		<tr>
-			<th>@nameof(comment.CreationDate)</th>
-			<td>
-				@comment.CreationDate
-			</td>
-		</tr>
-		@if (comment.CreationDate.HasValue && comment.ModificationDate.HasValue &&
-				comment.CreationDate.Value.CompareTo(comment.ModificationDate.Value) > 0)
-		{
-			<tr>
-				<th>@nameof(comment.ModificationDate)</th>
-				<td>
-					@comment.ModificationDate
-				</td>
-			</tr>
-		}
-	</table>
-
-	<br />
-
-
-	<a class="btn btn-danger"
-	   asp-action="DeleteComment"
-	   asp-route-id="@comment.Id"
-		asp-route-articleId="@comment.ArticleId">
-		Delete Comment
-	</a>
-
-	<br />
+		<div class="text-center">
+			<a class="btn btn-warning"
+			   asp-action="CreateComment"
+			   asp-route-articleId="@Model.Article.Id">
+				Create Comment for Article @Model.Article.Topic
+			</a>
+		</div>
+	}
+	
 	<br />
 	<hr />
 	<br />
+
+	foreach (Comment comment in Model.Comments)
+	{	
+		List<string> paragraphs = comment.Content.Split("\n").ToList();
+
+		<table class="center">		
+@{#if DEBUG
+			<tr>
+				<th>@nameof(comment.ArticleId)</th>
+				<td>
+					<b>@comment.ArticleId</b>
+				</td>
+			</tr>
+#endif}
+			<tr>
+				<th>@nameof(comment.Article.Topic)</th>
+				<td>
+					<b>@(comment.Article?.Topic ?? "ERROR")</b>
+				</td>
+			</tr>
+			<tr>
+				<th>@nameof(comment.Author)</th>
+				<td>
+					<b>@comment.Author</b>
+				</td>
+			</tr>
+			<tr>
+				<th>@nameof(comment.Content)</th>
+				<td>
+					@foreach (var paragraph in paragraphs)
+					{
+						@paragraph
+						<br />
+					}
+				</td>
+			</tr>
+			<tr>
+				<th>@nameof(comment.CreationDate)</th>
+				<td>
+					@comment.CreationDate
+				</td>
+			</tr>
+			@if (comment.CreationDate.HasValue && comment.ModificationDate.HasValue &&
+					comment.CreationDate.Value.CompareTo(comment.ModificationDate.Value) > 0)
+			{
+				<tr>
+					<th>@nameof(comment.ModificationDate)</th>
+					<td>
+						@comment.ModificationDate
+					</td>
+				</tr>
+			}
+		</table>
+
+		<br />
+
+		<div class="text-center">
+			<a class="btn btn-danger"
+			   asp-action="DeleteComment"
+			   asp-route-id="@comment.Id"
+				asp-route-articleId="@comment.ArticleId">
+				Delete Comment
+			</a>
+		</div>
+
+		<br />
+		<hr />
+		<br />
+	}
 }

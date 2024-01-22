@@ -1,0 +1,61 @@
+﻿@using FullStackWebProject.Models
+
+@model Article
+
+
+@{
+	List<string> paragraphs = Model.Content.Split("\n").ToList();
+
+	<table class="center">
+		@{
+	#if DEBUG
+		<tr>
+			<th>@nameof(Model.Id)</th>
+			<td>
+				<b>@Model.Id</b>
+			</td>
+		</tr>
+	#endif
+		}
+		<tr>
+			<th>@nameof(Model.Topic)</th>
+			<td>
+				<b>@Model.Topic</b>
+			</td>
+		</tr>
+		<tr>
+			<th>@nameof(Model.Author)</th>
+			<td>
+				<b>@Model.Author</b>
+			</td>
+		</tr>
+		<tr>
+			<th>@nameof(Model.Content)</th>
+			<td>
+				@foreach (var paragraph in paragraphs)
+				{
+					@paragraph
+					<br />
+				}
+			</td>
+		</tr>
+		<tr>
+			<th>@nameof(Model.CreationDate)</th>
+			<td>
+				@Model.CreationDate
+			</td>
+		</tr>
+		@if (Model.CreationDate.HasValue && Model.ModificationDate.HasValue &&
+				Model.CreationDate.Value.CompareTo(Model.ModificationDate.Value) > 0)
+		{
+			<tr>
+				<th>@nameof(Model.ModificationDate)</th>
+				<td>
+					@Model.ModificationDate
+				</td>
+			</tr>
+		}
+	</table>
+
+	<br />
+}

@@ -23,6 +23,11 @@ body {
 
 table {
 	/*width: 100em;*/
+	/*margin: auto;*/
+}
+
+.center {
+	margin: auto;
 }
 
 table, th, td {

@@ -14,8 +14,6 @@
 
 @foreach (Article article in Model)
 {
-	List<string> paragraphs = article.Content.Split("\n").ToList();
-
 	<table>
 		@{
 #if DEBUG
@@ -37,16 +35,6 @@
 			<th>@nameof(article.Author)</th>
 			<td>
 				<b>@article.Author</b>
-			</td>
-		</tr>
-		<tr>
-			<th>@nameof(article.Content)</th>
-			<td>
-				@foreach (var paragraph in paragraphs)
-				{
-					@paragraph
-					<br />
-				}
 			</td>
 		</tr>
 		<tr>

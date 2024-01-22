@@ -1,8 +1,24 @@
-﻿@{
+﻿@using FullStackWebProject.Models
+
+@model Article
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
+
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>This is the most recent Article on this Web Application:</p>
+</div>
+
+<hr />
+<br />
+
+<div>
+	<partial name="PartialViews/_Article" model=Model />
+
+	<hr />
+	<br />
 </div>

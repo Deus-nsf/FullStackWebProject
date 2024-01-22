@@ -2,6 +2,7 @@
 
 using FullStackWebProject.Models;
 using FullStackWebProject.ServicesContracts;
+using FullStackWebProject.UserInterface.ViewModels;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,11 +71,17 @@ public class CommentController : Controller
 
 		comments = 
 			comments.OrderByDescending(c => c.ModificationDate).ToList();
+
+		ArticleCommentViewModel viewModel = new() 
+		{
+			Article = null, 
+			Comments = comments 
+		};
 		
-		return View("DisplayComments", comments);
+		return View("DisplayComments", viewModel);
 #else
-		List<Comment> comments = new();
-		return View("DisplayComments", comments);
+		ArticleCommentViewModel viewModel = new();
+		return View("DisplayComments", viewModel);
 #endif
 	}
 
@@ -84,12 +91,13 @@ public class CommentController : Controller
 	{
 		Article? article = await _articleService.GetArticleById(articleId);
 		List<Comment> comments = article?.Comments.ToList() ?? new();
+		ArticleCommentViewModel viewModel = new()
+		{
+			Article = article,
+			Comments = comments
+		};
 
-		ViewBag.UniqueArticle = true;
-		ViewBag.ArticleId = articleId;
-		ViewBag.Topic = article?.Topic ?? "<no topic>";
-
-		return View(comments);
+		return View(viewModel);
 	}
 
 
@@ -103,19 +111,6 @@ public class CommentController : Controller
 
 
 	// ----------- OTHER -----------
-
-
-	//public async Task TestGetArticleAndComments()
-	//{
-	//	Article? article = await _articleService.GetArticleById(1);
-	//	List<Comment> comments = article?.Comments.ToList() ?? new();
-
-	//	await Console.Out.WriteLineAsync(article?.ToString());
-	//	foreach (Comment comment in comments)
-	//	{
-	//		await Console.Out.WriteLineAsync(comment.ToString());
-	//	}
-	//}
 
 
 	public async Task TestAddComment(int articleId)

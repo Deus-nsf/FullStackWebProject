@@ -73,17 +73,6 @@ public class ArticleController : Controller
 	// ----------- OTHER -----------
 
 
-	//public async Task TestGetArticles()
-	//{
-	//	List<Article> articles = await _articleService.GetArticles();
-
-	//	foreach (Article article in articles)
-	//	{
-	//		await Console.Out.WriteLineAsync(article.ToString());
-	//	}
-	//}
-
-
 	public async Task TestAddArticle()
 	{
 		Article article = new()
